@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.1</Version>
+    <Authors>Justus Bonz</Authors>
+    <PackageProjectUrl>https://github.com/jasdefer/ValidationHelper</PackageProjectUrl>
+  </PropertyGroup>
+
+</Project>

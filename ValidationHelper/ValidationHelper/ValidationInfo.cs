@@ -40,6 +40,24 @@ namespace ValidationHelper
         /// </summary>
         public virtual bool IsValid => Errors.Count == 0;
 
+        /// <summary>
+        /// Add an error to the ValidationInfo.
+        /// </summary>
+        /// <param name="error">The error which is added to the ValidationInfo.</param>
+        public void AddError(string error)
+        {
+            Errors.Add(error);
+        }
+
+        /// <summary>
+        /// Add errors to the ValidationInfo.
+        /// </summary>
+        /// <param name="errors">The errors which are added to the ValidationInfo.</param>
+        public void AddErrors(IEnumerable<string> errors)
+        {
+            Errors.AddRange(errors);
+        }
+
         public static ValidationInfo CreateSuccess => new ValidationInfo();
         public static ValidationInfo CreateFailure(string error) => new ValidationInfo(error);
         public static ValidationInfo CreateFailure(IEnumerable<string> errors) => new ValidationInfo(errors);

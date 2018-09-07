@@ -58,6 +58,15 @@ namespace ValidationHelper
             Errors.AddRange(errors);
         }
 
+        /// <summary>
+        /// Get a single string containing all errors. The errors are separated with the provided separation string.
+        /// </summary>
+        /// <param name="separator">The string which separates the errors.</param>
+        public string JoinErrors(string separator = ", ")
+        {
+            return string.Join(separator, Errors);
+        }
+
         public static ValidationInfo CreateSuccess => new ValidationInfo();
         public static ValidationInfo CreateFailure(string error) => new ValidationInfo(error);
         public static ValidationInfo CreateFailure(IEnumerable<string> errors) => new ValidationInfo(errors);

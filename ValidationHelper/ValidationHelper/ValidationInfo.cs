@@ -130,6 +130,20 @@ namespace ValidationHelper
         }
 
         /// <summary>
+        /// Get all error, warning, info and success messages and add the to this ValidationInfo.
+        /// The <param name="info"/> will not changed.
+        /// </summary>
+        /// <param name="info">This will not change.</param>
+        public void Assimilate(ValidationInfo info)
+        {
+            if (info == null) return;
+            AddErrors(info.Errors);
+            AddSuccess(info.Success);
+            AddWarnings(info.Warnings);
+            AddInfo(info.Info);
+        }
+
+        /// <summary>
         /// Get a single string containing all errors. The errors are separated with the provided separation string.
         /// </summary>
         /// <param name="separator">The string which separates the errors.</param>

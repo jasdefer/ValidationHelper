@@ -3,12 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <Authors>Justus Bonz</Authors>
     <PackageProjectUrl>https://github.com/jasdefer/ValidationHelper</PackageProjectUrl>
     <Description>This package provides objects which can be returned by methods. Those objects contain feedback about the method call. They can contain error messages or a requested object.</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReleaseNotes>Added the feature to join the errors of a ValidationInfo.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added the feature to create info, warning and success messages. They don't affect the is valid state of the validation info.
+It is now possible to transform a validation response into a validation info.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>

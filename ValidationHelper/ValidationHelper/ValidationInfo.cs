@@ -36,6 +36,28 @@ namespace ValidationHelper
         public List<string> Errors { get; set; } = new List<string>();
 
         /// <summary>
+        /// A collection of success messages.
+        /// As long as there is at least one error the ValidationInfo remain invalid.
+        /// Even if it has some success messages.
+        /// </summary>
+        public List<string> Success { get; set; } = new List<string>();
+
+        /// <summary>
+        /// A collection of information messages.
+        /// As long as there is at least one error the ValidationInfo remain invalid.
+        /// Even if it has some info messages.
+        /// </summary>
+        public List<string> Info { get; set; } = new List<string>();
+
+        /// <summary>
+        /// A collection of warning messages.
+        /// As long as there is at least one error the ValidationInfo remain invalid.
+        /// Even if it has some warning messages.
+        /// If there is no error but one or more warnings, the ValidationInfo is valid.
+        /// </summary>
+        public List<string> Warnings { get; set; } = new List<string>();
+
+        /// <summary>
         /// Is true, if there are no errors and false otherwise
         /// </summary>
         public virtual bool IsValid => Errors.Count == 0;
@@ -50,12 +72,61 @@ namespace ValidationHelper
         }
 
         /// <summary>
+        /// Add a success message to the validation info.
+        /// </summary>
+        public void AddSuccess(string success)
+        {
+            Success.Add(success);
+        }
+
+        /// <summary>
+        /// Add an information message to the ValidationInfo.
+        /// </summary>
+        public void AddInfo(string info)
+        {
+            Info.Add(info);
+        }
+
+        /// <summary>
+        /// Add a warning message to the ValidationInfo.
+        /// </summary>
+        public void AddWarning(string warning)
+        {
+            Warnings.Add(warning);
+        }
+
+        /// <summary>
         /// Add errors to the ValidationInfo.
         /// </summary>
         /// <param name="errors">The errors which are added to the ValidationInfo.</param>
         public void AddErrors(IEnumerable<string> errors)
         {
             Errors.AddRange(errors);
+        }
+
+        /// <summary>
+        /// Add multiple success messages.
+        /// </summary>
+        public void AddSuccess(IEnumerable<string> success)
+        {
+            Success.AddRange(success);
+        }
+
+        /// <summary>
+        /// Add multiple information messages to the ValidationInfo.
+        /// </summary>
+        public void AddInfo(IEnumerable<string> info)
+        {
+            Info.AddRange(info);
+        }
+
+        /// <summary>
+        /// Add multiple warning messages to the ValidationInfo.
+        /// </summary>
+        /// <param name="warning"></param>
+        public void AddWarnings(IEnumerable<string> warning)
+        {
+            Warnings.AddRange(warning);
         }
 
         /// <summary>
@@ -70,5 +141,14 @@ namespace ValidationHelper
         public static ValidationInfo CreateSuccess => new ValidationInfo();
         public static ValidationInfo CreateFailure(string error) => new ValidationInfo(error);
         public static ValidationInfo CreateFailure(IEnumerable<string> errors) => new ValidationInfo(errors);
+        public static ValidationInfo FromResponse<T>(ValidationResponse<T> response)
+        {
+            ValidationInfo info = new ValidationInfo();
+            if (response != null && !response.IsValid)
+            {
+                info.AddErrors(response.Errors);
+            }
+            return info;
+        }
     }
 }

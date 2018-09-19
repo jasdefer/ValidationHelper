@@ -83,5 +83,25 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.IsNotNull(info.Errors, "The error list of the ValidationInfo is wrongly null.");
             Assert.AreEqual(errorCount, info.Errors.Count, $"The ValidationInfo created with a {errorCount} errors contains {info.Errors.Count} error(s).");
         }
+
+        [TestMethod]
+        public void CreateFromValidationResponseWithError()
+        {
+            var response = ValidationResponse<int>.CreateFailure("error");
+            ValidationInfo info = ValidationInfo.FromResponse(response);
+            Assert.IsNotNull(info);
+            Assert.IsFalse(info.IsValid, "The validation info wrongly valid.");
+            Assert.AreEqual(1, info.Errors.Count);
+            Assert.AreEqual(response.Errors[0], info.Errors[0]);
+        }
+
+        [TestMethod]
+        public void CreateFromValidationResponseWithoutError()
+        {
+            var response = ValidationResponse<int>.CreateSuccess(2);
+            ValidationInfo info = ValidationInfo.FromResponse(response);
+            Assert.IsNotNull(info);
+            Assert.IsTrue(info.IsValid, "The validation info wrongly invalid: " + info.JoinErrors());
+        }
     }
 }

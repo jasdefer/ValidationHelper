@@ -70,5 +70,14 @@ namespace ValidationHelper
         public static ValidationInfo CreateSuccess => new ValidationInfo();
         public static ValidationInfo CreateFailure(string error) => new ValidationInfo(error);
         public static ValidationInfo CreateFailure(IEnumerable<string> errors) => new ValidationInfo(errors);
+        public static ValidationInfo FromResponse<T>(ValidationResponse<T> response)
+        {
+            ValidationInfo info = new ValidationInfo();
+            if (response != null && !response.IsValid)
+            {
+                info.AddErrors(response.Errors);
+            }
+            return info;
+        }
     }
 }

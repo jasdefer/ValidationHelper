@@ -8,7 +8,12 @@ namespace ValidationHelper
     /// <typeparam name="T"></typeparam>
     public class ValidationResponse<T> : ValidationInfo
     {
-        private ValidationResponse()
+        /// <summary>
+        /// Create a new ValidaitonResponse.
+        /// It indicates success until an error is added.
+        /// The value of this ValidationResponse is not initialized.
+        /// </summary>
+        public ValidationResponse()
         {
 
         }
@@ -56,6 +61,18 @@ namespace ValidationHelper
         {
             var response = new ValidationResponse<T>();
             response.Errors.AddRange(errors);
+            return response;
+        }
+
+        /// <summary>
+        /// Create a new validation response with the error, warning, info and success messages of a given ValidationInfo.
+        /// </summary>
+        /// <param name="info">The messages of this ValidationInfo object are copied. It will not be changed.</param>
+        /// <returns>Returns a new ValidationResponse without initializing the value.</returns>
+        public static ValidationResponse<T> FromInfo(ValidationInfo info)
+        {
+            var response = new ValidationResponse<T>();
+            response.Assimilate(info);
             return response;
         }
     }

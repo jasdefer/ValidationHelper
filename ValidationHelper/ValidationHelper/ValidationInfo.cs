@@ -131,8 +131,6 @@ namespace ValidationHelper
 
         /// <summary>
         /// Get all error, warning, info and success messages and add the to this ValidationInfo.
-        /// The <param name="info"/> will not changed.
-        /// </summary>
         /// <param name="info">This will not change.</param>
         public void Assimilate(ValidationInfo info)
         {
@@ -152,16 +150,36 @@ namespace ValidationHelper
             return string.Join(separator, Errors);
         }
 
+        /// <summary>
+        /// Create a new ValidationInfo without any messages.
+        /// </summary>
         public static ValidationInfo CreateSuccess => new ValidationInfo();
+
+        /// <summary>
+        /// Create a new ValidationInfo with a single error.
+        /// </summary>
+        /// <param name="error">The single error used for the creation of a new ValidationInfo.</param>
+        /// <returns>Returns a new ValidationInfo with a single error.</returns>
         public static ValidationInfo CreateFailure(string error) => new ValidationInfo(error);
+
+        /// <summary>
+        /// Create a new ValidationInfo with a collection of errors.
+        /// </summary>
+        /// <param name="errors">The collection of errors used for the creation of a new ValidationInfo.</param>
+        /// <returns>Returns a new ValidationInfo with a collection of errors.</returns>
         public static ValidationInfo CreateFailure(IEnumerable<string> errors) => new ValidationInfo(errors);
+
+        /// <summary>
+        /// TakeCreate a new ValidationInfo with all error, warning, info and success messages from a ValidationResponse.
+        /// The value of the 
+        /// </summary>
+        /// <typeparam name="T">The generic type of the ValidationResponse.</typeparam>
+        /// <param name="response">The messages of this response will be copied to a new ValidationInfo.</param>
+        /// <returns>Returns a new ValidationInfo with the messages of the given ValidationResponse.</returns>
         public static ValidationInfo FromResponse<T>(ValidationResponse<T> response)
         {
             ValidationInfo info = new ValidationInfo();
-            if (response != null && !response.IsValid)
-            {
-                info.AddErrors(response.Errors);
-            }
+            info.Assimilate(response);
             return info;
         }
     }

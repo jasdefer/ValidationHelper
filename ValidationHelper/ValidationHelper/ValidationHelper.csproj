@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,6 +9,7 @@
     <Description>This package provides objects which can be returned by methods. Those objects contain feedback about the method call. They can contain error messages or a requested object.</Description>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageReleaseNotes>A validation info can now assimilate another validation info. The assimilated validation info will not change. All error, warning, info and success messages will be copied to the validation info.</PackageReleaseNotes>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>

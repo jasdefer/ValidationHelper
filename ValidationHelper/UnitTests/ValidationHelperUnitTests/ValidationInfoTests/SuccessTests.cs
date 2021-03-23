@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using ValidationHelper;
 
 namespace ValidationHelperUnitTests.ValidationInfoTests
@@ -12,9 +13,9 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             var info = ValidationInfo.CreateSuccess;
             info.AddSuccess("success");
             Assert.IsTrue(info.IsValid);
-            Assert.IsNotNull(info.Success);
-            Assert.AreEqual(1, info.Success.Count);
-            Assert.AreEqual("success", info.Success[0]);
+            Assert.IsNotNull(info.Successes);
+            Assert.AreEqual(1, info.Successes.Count);
+            Assert.AreEqual("success", info.Successes.ElementAt(0));
         }
 
         [TestMethod]
@@ -23,9 +24,9 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             var info = ValidationInfo.CreateFailure("error");
             info.AddSuccess("success");
             Assert.IsFalse(info.IsValid);
-            Assert.IsNotNull(info.Success);
-            Assert.AreEqual(1, info.Success.Count);
-            Assert.AreEqual("success", info.Success[0]);
+            Assert.IsNotNull(info.Successes);
+            Assert.AreEqual(1, info.Successes.Count);
+            Assert.AreEqual("success", info.Successes.ElementAt(0));
         }
 
         [TestMethod]
@@ -39,10 +40,10 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             };
             info.AddSuccess(success);
             Assert.IsTrue(info.IsValid);
-            Assert.IsNotNull(info.Success);
-            Assert.AreEqual(2, info.Success.Count);
-            Assert.AreEqual("success1", info.Success[0]);
-            Assert.AreEqual("success2", info.Success[1]);
+            Assert.IsNotNull(info.Successes);
+            Assert.AreEqual(2, info.Successes.Count);
+            Assert.AreEqual("success1", info.Successes.ElementAt(0));
+            Assert.AreEqual("success2", info.Successes.ElementAt(1));
         }
 
         [TestMethod]
@@ -56,10 +57,10 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             };
             info.AddSuccess(success);
             Assert.IsFalse(info.IsValid);
-            Assert.IsNotNull(info.Success);
-            Assert.AreEqual(2, info.Success.Count);
-            Assert.AreEqual("success1", info.Success[0]);
-            Assert.AreEqual("success2", info.Success[1]);
+            Assert.IsNotNull(info.Successes);
+            Assert.AreEqual(2, info.Successes.Count);
+            Assert.AreEqual("success1", info.Successes.ElementAt(0));
+            Assert.AreEqual("success2", info.Successes.ElementAt(1));
         }
     }
 }

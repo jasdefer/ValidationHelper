@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using ValidationHelper;
 
 namespace ValidationHelperUnitTests.ValidationInfoTests
@@ -14,7 +15,7 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.IsTrue(info.IsValid);
             Assert.IsNotNull(info.Warnings);
             Assert.AreEqual(1, info.Warnings.Count);
-            Assert.AreEqual("warning", info.Warnings[0]);
+            Assert.AreEqual("warning", info.Warnings.ElementAt(0));
         }
 
         [TestMethod]
@@ -25,7 +26,7 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.IsFalse(info.IsValid);
             Assert.IsNotNull(info.Warnings);
             Assert.AreEqual(1, info.Warnings.Count);
-            Assert.AreEqual("warning", info.Warnings[0]);
+            Assert.AreEqual("warning", info.Warnings.ElementAt(0));
         }
 
         [TestMethod]
@@ -41,8 +42,8 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.IsTrue(info.IsValid);
             Assert.IsNotNull(info.Warnings);
             Assert.AreEqual(2, info.Warnings.Count);
-            Assert.AreEqual("warning1", info.Warnings[0]);
-            Assert.AreEqual("warning2", info.Warnings[1]);
+            Assert.AreEqual("warning1", info.Warnings.ElementAt(0));
+            Assert.AreEqual("warning2", info.Warnings.ElementAt(1));
         }
 
         [TestMethod]
@@ -58,8 +59,8 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.IsFalse(info.IsValid);
             Assert.IsNotNull(info.Warnings);
             Assert.AreEqual(2, info.Warnings.Count);
-            Assert.AreEqual("warning1", info.Warnings[0]);
-            Assert.AreEqual("warning2", info.Warnings[1]);
+            Assert.AreEqual("warning1", info.Warnings.ElementAt(0));
+            Assert.AreEqual("warning2", info.Warnings.ElementAt(1));
         }
     }
 }

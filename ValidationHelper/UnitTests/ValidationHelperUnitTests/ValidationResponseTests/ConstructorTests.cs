@@ -48,7 +48,7 @@ namespace ValidationHelperUnitTests.ValidationResponseTests
         public void CreateFailureWithValue()
         {
             var result = new ValidationResponse<int>(1);
-            result.Errors.Add("error");
+            result.AddError("error");
             Assert.AreEqual(false, result.IsValid, "A ValidationResponse with a value and an error message is wrongly valid.");
             Assert.AreEqual(1, result.Value);
         }

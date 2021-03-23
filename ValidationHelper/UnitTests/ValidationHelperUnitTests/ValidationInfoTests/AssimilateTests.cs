@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using ValidationHelper;
 
 namespace ValidationHelperUnitTests.ValidationInfoTests
@@ -14,7 +15,7 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             info.Assimilate(info2);
             Assert.IsFalse(info.IsValid);
             Assert.AreEqual(1, info.Errors.Count);
-            Assert.AreEqual("error", info.Errors[0]);
+            Assert.AreEqual("error", info.Errors.ElementAt(0));
         }
 
         [TestMethod]
@@ -26,7 +27,7 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             info.Assimilate(info2);
             Assert.IsFalse(info.IsValid);
             Assert.AreEqual(1, info.Errors.Count);
-            Assert.AreEqual("error", info.Errors[0]);
+            Assert.AreEqual("error", info.Errors.ElementAt(0));
         }
 
         [TestMethod]
@@ -38,7 +39,7 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             info.Assimilate(info2);
             Assert.IsTrue(info.IsValid);
             Assert.AreEqual(1, info.Warnings.Count);
-            Assert.AreEqual("warning1", info.Warnings[0]);
+            Assert.AreEqual("warning1", info.Warnings.ElementAt(0));
         }
 
         [TestMethod]
@@ -49,8 +50,8 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.IsTrue(info.IsValid);
             Assert.AreEqual(0, info.Errors.Count);
             Assert.AreEqual(0, info.Warnings.Count);
-            Assert.AreEqual(0, info.Info.Count);
-            Assert.AreEqual(0, info.Success.Count);
+            Assert.AreEqual(0, info.Infos.Count);
+            Assert.AreEqual(0, info.Successes.Count);
         }
 
         [TestMethod]
@@ -72,20 +73,20 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
 
             Assert.IsFalse(info.IsValid);
             Assert.AreEqual(2, info.Errors.Count);
-            Assert.AreEqual("error1", info.Errors[0]);
-            Assert.AreEqual("error2", info.Errors[1]);
+            Assert.AreEqual("error1", info.Errors.ElementAt(0));
+            Assert.AreEqual("error2", info.Errors.ElementAt(1));
 
             Assert.AreEqual(2, info.Warnings.Count);
-            Assert.AreEqual("warning1", info.Warnings[0]);
-            Assert.AreEqual("warning2", info.Warnings[1]);
+            Assert.AreEqual("warning1", info.Warnings.ElementAt(0));
+            Assert.AreEqual("warning2", info.Warnings.ElementAt(1));
 
-            Assert.AreEqual(2, info.Info.Count);
-            Assert.AreEqual("info1", info.Info[0]);
-            Assert.AreEqual("info2", info.Info[1]);
+            Assert.AreEqual(2, info.Infos.Count);
+            Assert.AreEqual("info1", info.Infos.ElementAt(0));
+            Assert.AreEqual("info2", info.Infos.ElementAt(1));
 
-            Assert.AreEqual(2, info.Success.Count);
-            Assert.AreEqual("success1", info.Success[0]);
-            Assert.AreEqual("success2", info.Success[1]);
+            Assert.AreEqual(2, info.Successes.Count);
+            Assert.AreEqual("success1", info.Successes.ElementAt(0));
+            Assert.AreEqual("success2", info.Successes.ElementAt(1));
         }
     }
 }

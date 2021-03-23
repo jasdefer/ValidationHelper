@@ -48,7 +48,7 @@ namespace ValidationHelper
         public new static ValidationResponse<T> CreateFailure(string error)
         {
             var response = new ValidationResponse<T>();
-            response.Errors.Add(error);
+            response.AddError(error);
             return response;
 
         }
@@ -60,7 +60,7 @@ namespace ValidationHelper
         public new static ValidationResponse<T> CreateFailure(IEnumerable<string> errors)
         {
             var response = new ValidationResponse<T>();
-            response.Errors.AddRange(errors);
+            response.AddErrors(errors);
             return response;
         }
 

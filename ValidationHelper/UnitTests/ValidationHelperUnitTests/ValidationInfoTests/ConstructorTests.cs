@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 using ValidationHelper;
 
 namespace ValidationHelperUnitTests.ValidationInfoTests
@@ -33,7 +34,7 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.AreEqual(false, info.IsValid, "The constructor to create a info with a single error is wrongly valid.");
             Assert.IsNotNull(info.Errors, "The error list of the ValidationInfo is wrongly null.");
             Assert.AreEqual(1, info.Errors.Count, $"The ValidationInfo created with a single error contains {info.Errors.Count} errors.");
-            Assert.AreEqual(error, info.Errors[0], $"The single error message is {info.Errors[0]} instead of {error}.");
+            Assert.AreEqual(error, info.Errors.ElementAt(0), $"The single error message is {info.Errors.ElementAt(0)} instead of {error}.");
         }
 
         [DataTestMethod]
@@ -45,7 +46,7 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.AreEqual(false, info.IsValid, "The constructor to create a info with a single error is wrongly valid.");
             Assert.IsNotNull(info.Errors, "The error list of the ValidationInfo is wrongly null.");
             Assert.AreEqual(1, info.Errors.Count, $"The ValidationInfo created with a single error contains {info.Errors.Count} errors.");
-            Assert.AreEqual(error, info.Errors[0], $"The single error message is {info.Errors[0]} instead of {error}.");
+            Assert.AreEqual(error, info.Errors.ElementAt(0), $"The single error message is {info.Errors.ElementAt(0)} instead of {error}.");
         }
 
         [DataTestMethod]
@@ -92,7 +93,7 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.IsNotNull(info);
             Assert.IsFalse(info.IsValid, "The validation info wrongly valid.");
             Assert.AreEqual(1, info.Errors.Count);
-            Assert.AreEqual(response.Errors[0], info.Errors[0]);
+            Assert.AreEqual(response.Errors.ElementAt(0), info.Errors.ElementAt(0));
         }
 
         [TestMethod]

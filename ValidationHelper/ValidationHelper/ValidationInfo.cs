@@ -7,6 +7,11 @@ namespace ValidationHelper
     /// </summary>
     public class ValidationInfo
     {
+        private List<string> errors = new List<string>();
+        private List<string> warnings = new List<string>();
+        private List<string> infos = new List<string>();
+        private List<string> successes = new List<string>();
+
         /// <summary>
         /// Create a new ValidationInfo. It indicates success until an error is added.
         /// </summary>
@@ -18,7 +23,7 @@ namespace ValidationHelper
         /// <param name="error">The error with which the ValidationInfo is created.</param>
         public ValidationInfo(string error)
         {
-            Errors.Add(error);
+            errors.Add(error);
         }
 
         /// <summary>
@@ -27,27 +32,28 @@ namespace ValidationHelper
         /// <param name="errors">The errors with which the ValidationInfo is created.</param>
         public ValidationInfo(IEnumerable<string> errors)
         {
-            Errors.AddRange(errors);
+            this.errors.AddRange(errors);
         }
 
+        #region Properties
         /// <summary>
         /// The collection of all errors
         /// </summary>
-        public List<string> Errors { get; set; } = new List<string>();
+        public IReadOnlyCollection<string> Errors => errors;
 
         /// <summary>
         /// A collection of success messages.
         /// As long as there is at least one error the ValidationInfo remain invalid.
         /// Even if it has some success messages.
         /// </summary>
-        public List<string> Success { get; set; } = new List<string>();
+        public IReadOnlyCollection<string> Successes => successes;
 
         /// <summary>
         /// A collection of information messages.
         /// As long as there is at least one error the ValidationInfo remain invalid.
         /// Even if it has some info messages.
         /// </summary>
-        public List<string> Info { get; set; } = new List<string>();
+        public IReadOnlyCollection<string> Infos => infos;
 
         /// <summary>
         /// A collection of warning messages.
@@ -55,20 +61,22 @@ namespace ValidationHelper
         /// Even if it has some warning messages.
         /// If there is no error but one or more warnings, the ValidationInfo is valid.
         /// </summary>
-        public List<string> Warnings { get; set; } = new List<string>();
+        public IReadOnlyCollection<string> Warnings => warnings;
 
         /// <summary>
         /// Is true, if there are no errors and false otherwise
         /// </summary>
         public virtual bool IsValid => Errors.Count == 0;
+        #endregion
 
+        #region AddMessage
         /// <summary>
         /// Add an error to the ValidationInfo.
         /// </summary>
         /// <param name="error">The error which is added to the ValidationInfo.</param>
         public void AddError(string error)
         {
-            Errors.Add(error);
+            this.errors.Add(error);
         }
 
         /// <summary>
@@ -76,7 +84,7 @@ namespace ValidationHelper
         /// </summary>
         public void AddSuccess(string success)
         {
-            Success.Add(success);
+            successes.Add(success);
         }
 
         /// <summary>
@@ -84,7 +92,7 @@ namespace ValidationHelper
         /// </summary>
         public void AddInfo(string info)
         {
-            Info.Add(info);
+            infos.Add(info);
         }
 
         /// <summary>
@@ -92,7 +100,7 @@ namespace ValidationHelper
         /// </summary>
         public void AddWarning(string warning)
         {
-            Warnings.Add(warning);
+            warnings.Add(warning);
         }
 
         /// <summary>
@@ -101,55 +109,57 @@ namespace ValidationHelper
         /// <param name="errors">The errors which are added to the ValidationInfo.</param>
         public void AddErrors(IEnumerable<string> errors)
         {
-            Errors.AddRange(errors);
+            this.errors.AddRange(errors);
         }
 
         /// <summary>
         /// Add multiple success messages.
         /// </summary>
-        public void AddSuccess(IEnumerable<string> success)
+        public void AddSuccess(IEnumerable<string> successes)
         {
-            Success.AddRange(success);
+            this.successes.AddRange(successes);
         }
 
         /// <summary>
         /// Add multiple information messages to the ValidationInfo.
         /// </summary>
-        public void AddInfo(IEnumerable<string> info)
+        public void AddInfo(IEnumerable<string> infos)
         {
-            Info.AddRange(info);
+            this.infos.AddRange(infos);
         }
 
         /// <summary>
         /// Add multiple warning messages to the ValidationInfo.
         /// </summary>
-        /// <param name="warning"></param>
-        public void AddWarnings(IEnumerable<string> warning)
+        public void AddWarnings(IEnumerable<string> warnings)
         {
-            Warnings.AddRange(warning);
+            this.warnings.AddRange(warnings);
         }
+        #endregion
 
         /// <summary>
         /// Get all error, warning, info and success messages and add the to this ValidationInfo.
+        /// </summary>
         /// <param name="info">This will not change.</param>
         public void Assimilate(ValidationInfo info)
         {
             if (info == null) return;
             AddErrors(info.Errors);
-            AddSuccess(info.Success);
+            AddSuccess(info.Successes);
             AddWarnings(info.Warnings);
-            AddInfo(info.Info);
+            AddInfo(info.Infos);
         }
 
         /// <summary>
         /// Get a single string containing all errors. The errors are separated with the provided separation string.
         /// </summary>
         /// <param name="separator">The string which separates the errors.</param>
-        public string JoinErrors(string separator = ", ")
+        public string JoinErrors(string separator = "; ")
         {
             return string.Join(separator, Errors);
         }
 
+        #region StaticCreation
         /// <summary>
         /// Create a new ValidationInfo without any messages.
         /// </summary>
@@ -182,5 +192,6 @@ namespace ValidationHelper
             info.Assimilate(response);
             return info;
         }
+        #endregion
     }
 }

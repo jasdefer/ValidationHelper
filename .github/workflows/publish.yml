@@ -1,0 +1,28 @@
+name: publish to nuget
+on:
+  push:
+    branches:
+      - master # Default release branch
+jobs:
+  publish:
+    name: build, pack & publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Restore and Build
+        run: |
+          dotnet restore ValidationHelper/ValidationHelper/ValidationHelper.csproj
+          dotnet build --configuration Release ValidationHelper/ValidationHelper/ValidationHelper.csproj
+      - name: Test the project
+        run: dotnet test ValidationHelper/UnitTests/ValidationHelperUnitTests/ValidationHelperUnitTests.csproj
+      - name: publish to nuget
+        env: NUGET_KEY: ${{NUGET_API_KEY}}
+        run: |
+          dotnet pack --configuration Release ValidationHelper/ValidationHelper/ValidationHelper.csproj --output Nuget --
+          dotnet nuget push "Nuget/**.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key ${NUGET_KEY}
+          

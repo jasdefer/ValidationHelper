@@ -22,7 +22,7 @@ jobs:
         run: dotnet test ValidationHelper/UnitTests/ValidationHelperUnitTests/ValidationHelperUnitTests.csproj
       - name: publish to nuget
         env: 
-          NUGET_KEY: ${{NUGET_API_KEY}}
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
         run: |
           dotnet pack --configuration Release ValidationHelper/ValidationHelper/ValidationHelper.csproj --output Nuget
           dotnet nuget push "Nuget/**.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key ${NUGET_KEY}

@@ -28,7 +28,7 @@ namespace ValidationHelperUnitTests.ValidationResponseTests
         [TestMethod]
         public void StaticCreateIntSuccess()
         {
-            var result = ValidationResponse<int>.CreateSuccess(1);
+            var result = new ValidationResponse<int>(1);
             Assert.AreEqual(true, result.IsValid, "Creating a success with a provided value is wrongly invalid.");
             Assert.IsNotNull(result.Value, "The value is wrongly null.");
             Assert.AreEqual(1, result.Value, "The value is wrongly stored.");
@@ -38,7 +38,7 @@ namespace ValidationHelperUnitTests.ValidationResponseTests
         [DataRow("response")]
         public void StaticCreateStringSuccess(string response)
         {
-            var result = ValidationResponse<string>.CreateSuccess(response);
+            var result = new ValidationResponse<string>(response);
             Assert.AreEqual(true, result.IsValid, "Creating a success with a provided value is wrongly invalid.");
             Assert.IsNotNull(result.Value, "The value is wrongly null.");
             Assert.AreEqual(response, result.Value, "The value is wrongly stored.");

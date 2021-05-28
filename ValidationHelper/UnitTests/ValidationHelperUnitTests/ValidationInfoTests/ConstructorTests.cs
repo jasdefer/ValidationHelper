@@ -86,20 +86,9 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
         }
 
         [TestMethod]
-        public void CreateFromValidationResponseWithError()
-        {
-            var response = ValidationResponse<int>.CreateFailure("error");
-            ValidationInfo info = ValidationInfo.FromResponse(response);
-            Assert.IsNotNull(info);
-            Assert.IsFalse(info.IsValid, "The validation info wrongly valid.");
-            Assert.AreEqual(1, info.Errors.Count);
-            Assert.AreEqual(response.Errors.ElementAt(0), info.Errors.ElementAt(0));
-        }
-
-        [TestMethod]
         public void CreateFromValidationResponseWithoutError()
         {
-            var response = ValidationResponse<int>.CreateSuccess(2);
+            var response = new ValidationResponse<int>(2);
             ValidationInfo info = ValidationInfo.FromResponse(response);
             Assert.IsNotNull(info);
             Assert.IsTrue(info.IsValid, "The validation info wrongly invalid: " + info.JoinErrors());

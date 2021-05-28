@@ -88,5 +88,40 @@ namespace ValidationHelperUnitTests.ValidationInfoTests
             Assert.AreEqual("success1", info.Successes.ElementAt(0));
             Assert.AreEqual("success2", info.Successes.ElementAt(1));
         }
+
+        [TestMethod]
+        public void ToValidationResponse()
+        {
+            var info = new ValidationInfo();
+            info.AddError("error");
+            info.AddWarning("warning");
+            info.AddSuccess("success");
+            info.AddInfo("info");
+            var response = info.ToValidationResponse<int>();
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual("error", response.Errors.Single());
+            Assert.AreEqual("warning", response.Warnings.Single());
+            Assert.AreEqual("success", response.Successes.Single());
+            Assert.AreEqual("info", response.Infos.Single());
+        }
+
+        [TestMethod]
+        public void ToValidationResponseWithValue()
+        {
+            var info = new ValidationInfo();
+            info.AddError("error");
+            info.AddWarning("warning");
+            info.AddSuccess("success");
+            info.AddInfo("info");
+            var response = info.ToValidationResponse<int>(3);
+
+            Assert.IsNotNull(response);
+            Assert.AreEqual("error", response.Errors.Single());
+            Assert.AreEqual("warning", response.Warnings.Single());
+            Assert.AreEqual("success", response.Successes.Single());
+            Assert.AreEqual("info", response.Infos.Single());
+            Assert.AreEqual(3, response.Value);
+        }
     }
 }

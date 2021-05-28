@@ -7,10 +7,10 @@ namespace ValidationHelper
     /// </summary>
     public class ValidationInfo
     {
-        private List<string> errors = new List<string>();
-        private List<string> warnings = new List<string>();
-        private List<string> infos = new List<string>();
-        private List<string> successes = new List<string>();
+        private readonly List<string> errors = new();
+        private readonly List<string> warnings = new();
+        private readonly List<string> infos = new();
+        private readonly List<string> successes = new();
 
         /// <summary>
         /// Create a new ValidationInfo. It indicates success until an error is added.
@@ -159,25 +159,52 @@ namespace ValidationHelper
             return string.Join(separator, Errors);
         }
 
+        /// <summary>
+        /// Append a value to this validation info and convert it to a <see cref="ValidationResponse{T}"/>
+        /// All warnings, infos, errors and successes are copied.
+        /// </summary>
+        /// <typeparam name="T">The generic type of the <see cref="ValidationResponse{T}"/></typeparam>
+        /// <param name="value">The value of the <see cref="ValidationResponse{T}"/> </param>
+        /// <returns>Returns a new <see cref="ValidationResponse{T}"/></returns>
+        public ValidationResponse<T> ToValidationResponse<T>(T value)
+        {
+            var validationResponse = new ValidationResponse<T>(value);
+            validationResponse.Assimilate(this);
+            return validationResponse;
+        }
+
+        /// <summary>
+        /// Append a value to this validation info and convert it to a <see cref="ValidationResponse{T}"/>
+        /// All warnings, infos, errors and successes are copied.
+        /// </summary>
+        /// <typeparam name="T">The generic type of the <see cref="ValidationResponse{T}"/></typeparam>
+        /// <returns>Returns a new <see cref="ValidationResponse{T}"/> without a value.</returns>
+        public ValidationResponse<T> ToValidationResponse<T>()
+        {
+            var validationResponse = new ValidationResponse<T>();
+            validationResponse.Assimilate(this);
+            return validationResponse;
+        }
+
         #region StaticCreation
         /// <summary>
         /// Create a new ValidationInfo without any messages.
         /// </summary>
-        public static ValidationInfo CreateSuccess => new ValidationInfo();
+        public static ValidationInfo CreateSuccess => new();
 
         /// <summary>
         /// Create a new ValidationInfo with a single error.
         /// </summary>
         /// <param name="error">The single error used for the creation of a new ValidationInfo.</param>
         /// <returns>Returns a new ValidationInfo with a single error.</returns>
-        public static ValidationInfo CreateFailure(string error) => new ValidationInfo(error);
+        public static ValidationInfo CreateFailure(string error) => new(error);
 
         /// <summary>
         /// Create a new ValidationInfo with a collection of errors.
         /// </summary>
         /// <param name="errors">The collection of errors used for the creation of a new ValidationInfo.</param>
         /// <returns>Returns a new ValidationInfo with a collection of errors.</returns>
-        public static ValidationInfo CreateFailure(IEnumerable<string> errors) => new ValidationInfo(errors);
+        public static ValidationInfo CreateFailure(IEnumerable<string> errors) => new(errors);
 
         /// <summary>
         /// TakeCreate a new ValidationInfo with all error, warning, info and success messages from a ValidationResponse.
@@ -188,7 +215,7 @@ namespace ValidationHelper
         /// <returns>Returns a new ValidationInfo with the messages of the given ValidationResponse.</returns>
         public static ValidationInfo FromResponse<T>(ValidationResponse<T> response)
         {
-            ValidationInfo info = new ValidationInfo();
+            var info = new ValidationInfo();
             info.Assimilate(response);
             return info;
         }

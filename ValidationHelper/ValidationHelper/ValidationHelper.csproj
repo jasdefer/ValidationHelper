@@ -8,12 +8,16 @@
   
   <PropertyGroup>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.9.0</Version>
+    <Version>0.9.1</Version>
     <Authors>Justus Bonz</Authors>
     <PackageProjectUrl>https://github.com/jasdefer/ValidationHelper</PackageProjectUrl>
     <Description>This package provides objects which can be returned by methods. Those objects contain feedback about the method call. They can contain error messages or a requested object.</Description>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReleaseNotes>Migrated to .net5</PackageReleaseNotes>
+    <PackageReleaseNotes>0.9.1
+Removed static creation methods
+Marked the assembly CLSCompliant
+0.9.0
+Migrated to .net5</PackageReleaseNotes>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 

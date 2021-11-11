@@ -13,7 +13,6 @@ public class ValidationResponse<T> : ValidationInfo
     /// </summary>
     public ValidationResponse()
     {
-
     }
 
     /// <summary>
@@ -28,5 +27,5 @@ public class ValidationResponse<T> : ValidationInfo
     /// <summary>
     /// The requested value. The ValidationResponse can be invalid even if this value is set.
     /// </summary>
-    public T Value { get; set; }
+    public T? Value { get; set; }
 }

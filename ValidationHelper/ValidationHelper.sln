@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationHelper", "ValidationHelper\ValidationHelper.csproj", "{6A22B0C6-C4E2-4473-B88A-32D96C0D65F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationHelper", "ValidationHelper\ValidationHelper.csproj", "{6A22B0C6-C4E2-4473-B88A-32D96C0D65F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{14402D8B-674D-4B38-866B-A3374EE7E04A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationHelperUnitTests", "UnitTests\ValidationHelperUnitTests\ValidationHelperUnitTests.csproj", "{0157487D-6880-4E27-8C6F-4664B639F18A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationHelperUnitTests", "UnitTests\ValidationHelperUnitTests\ValidationHelperUnitTests.csproj", "{0157487D-6880-4E27-8C6F-4664B639F18A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{899D1442-226C-4C61-B767-D9191ABB059F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,8 +1,10 @@
 name: publish to nuget
+
 on:
   push:
-    branches:
-      - master # Default release branch
+    tags:
+      - '*.*.*'
+      
 jobs:
   publish:
     name: build, pack & publish
@@ -13,7 +15,7 @@ jobs:
       - name: Setup dotnet
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 5.0.x
+          dotnet-version: '6.0.x'
       - name: Restore and Build
         run: |
           dotnet restore ValidationHelper/ValidationHelper/ValidationHelper.csproj
@@ -26,4 +28,3 @@ jobs:
         run: |
           dotnet pack --configuration Release ValidationHelper/ValidationHelper/ValidationHelper.csproj --output Nuget
           dotnet nuget push "Nuget/**.nupkg" --source "https://api.nuget.org/v3/index.json" --api-key ${NUGET_KEY}
-          
